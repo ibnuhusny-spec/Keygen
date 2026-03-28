@@ -2,11 +2,12 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Belku Pro - Pembuat Lisensi (Admin)</title>
+    <title>Master Keygen - Ibnu Husny</title>
     <style>
         body { background: #0f172a; color: #2dd4bf; font-family: monospace; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
         .box { background: #1e293b; padding: 30px; border-radius: 10px; border: 1px solid #2dd4bf; box-shadow: 0 0 20px rgba(45, 212, 191, 0.2); text-align: center; width: 400px; }
-        input { width: 100%; padding: 15px; margin: 10px 0; background: #0f172a; border: 1px solid #3b82f6; color: #f8fafc; font-size: 1.5rem; text-align: center; box-sizing: border-box; text-transform: uppercase; letter-spacing: 2px;}
+        select, input { width: 100%; padding: 15px; margin: 10px 0; background: #0f172a; border: 1px solid #3b82f6; color: #f8fafc; font-size: 1.2rem; text-align: center; box-sizing: border-box; outline: none; }
+        input { font-size: 1.5rem; text-transform: uppercase; letter-spacing: 2px; }
         button { width: 100%; padding: 15px; background: #2dd4bf; color: #0f172a; font-weight: bold; font-size: 1rem; border: none; cursor: pointer; transition: 0.2s; margin-top: 10px; border-radius: 5px;}
         button:hover { background: #14b8a6; }
         #result { font-size: 1.5rem; color: #f59e0b; margin-top: 20px; border: 2px dashed #f59e0b; padding: 15px; border-radius: 5px; display: none; word-break: break-all;}
@@ -14,8 +15,14 @@
 </head>
 <body>
     <div class="box">
-        <h2>🔑 KEYGEN BELKU PRO</h2>
-        <p style="color: #94a3b8; font-size: 0.8rem;">Generator Lisensi Khusus Admin (Ibnu Husny)</p>
+        <h2>👑 MASTER KEYGEN PRO</h2>
+        <p style="color: #94a3b8; font-size: 0.8rem;">Generator Lisensi Universal (Ibnu Husny)</p>
+        
+        <select id="pilihanAplikasi">
+            <option value="SOALKUPRO_IBNU_2026">1. Lisensi SOALKU PRO</option>
+            <option value="BELKUPRO_IBNU_2026">2. Lisensi BELKU PRO</option>
+        </select>
+
         <input type="text" id="hwid" placeholder="ID Perangkat Klien">
         <button onclick="generate()">BUAT KODE AKTIVASI</button>
         <div id="result"></div>
@@ -24,13 +31,14 @@
     <script>
         async function generate() {
             const hwid = document.getElementById('hwid').value.trim().toUpperCase();
+            
+            // Mengambil DNA (Secret Salt) secara dinamis dari Dropdown yang dipilih Admin
+            const secretSalt = document.getElementById('pilihanAplikasi').value; 
+
             if (!hwid) { alert("Masukkan ID Perangkat dari Klien!"); return; }
             
-            // KUNCI RAHASIA PABRIK (DNA Enkripsi)
-            const secretSalt = "BELKUPRO_IBNU_2026";
+            // Meracik kunci sesuai aplikasi yang dipilih
             const data = new TextEncoder().encode(hwid + secretSalt);
-            
-            // Proses Pengacakan Tingkat Tinggi (SHA-256)
             const hashBuffer = await crypto.subtle.digest('SHA-256', data);
             const hashArray = Array.from(new Uint8Array(hashBuffer));
             const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('').toUpperCase();
@@ -38,9 +46,13 @@
             // Format Output Kunci: XXXX-XXXX-XXXX-XXXX
             const key = hashHex.substring(0, 16).match(/.{1,4}/g).join('-');
             
+            // Mengambil nama aplikasi untuk ditampilkan di layar hasil
+            const selectEl = document.getElementById('pilihanAplikasi');
+            const appName = selectEl.options[selectEl.selectedIndex].text.replace(/[0-9.]/g, '').trim();
+            
             const resDiv = document.getElementById('result');
             resDiv.style.display = 'block';
-            resDiv.innerHTML = `LISENSI UNTUK KLIEN:<br><br><b style="letter-spacing: 2px;">${key}</b>`;
+            resDiv.innerHTML = `<span style="font-size:1rem; color:#94a3b8;">${appName}:</span><br><br><b style="letter-spacing: 2px;">${key}</b>`;
         }
     </script>
 </body>
